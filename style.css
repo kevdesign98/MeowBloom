@@ -1,0 +1,612 @@
+ @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+
+:root {
+    --bg-color: #fdf6f6;
+    --card-bg: #ffffff;
+    --primary-pink: #ff85a1;
+    --accent-rose: #ff477e;
+    --soft-purple: #b5838d;
+    --text-color: #4a4e69;
+    --green-leaf: #70e48c;
+    --yellow-flower: #ffea00;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe5ec 0%, #f0efeb 50%, #e8e8e4 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 20px 10px;
+}
+
+/* Top Bar Controls */
+.top-controls {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 95vw;
+}
+
+.top-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--primary-pink);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.top-btn:hover, .top-btn.active {
+    background: var(--accent-rose);
+    color: white;
+    border-color: var(--accent-rose);
+}
+
+.bg-element {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Card principale */
+.screen {
+    display: none;
+    width: 95%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
+    padding: 2.8rem 2.2rem;
+    border-radius: 32px;
+    box-shadow: 0 22px 50px rgba(255, 133, 161, 0.25);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    border: 2px solid #ffffff;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    color: var(--accent-rose);
+    margin-bottom: 0.8rem;
+    font-weight: 800;
+    font-size: 2.1rem;
+}
+
+h2 {
+    color: var(--accent-rose);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+p {
+    color: var(--text-color);
+    margin-bottom: 1.2rem;
+    font-size: 1.15rem;
+    line-height: 1.5;
+}
+
+.section-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--accent-rose);
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #ffd6ff;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    color: var(--text-color);
+    background: #fff;
+}
+
+input:focus {
+    border-color: var(--accent-rose);
+    box-shadow: 0 0 12px rgba(255, 71, 126, 0.3);
+}
+
+.btn {
+    background: linear-gradient(45deg, var(--primary-pink), var(--accent-rose));
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 28px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 71, 126, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    margin: 5px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 71, 126, 0.4);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    min-height: 110px;
+    position: relative;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-yes {
+    background: linear-gradient(45deg, #38b000, #70e48c);
+    box-shadow: 0 6px 20px rgba(56, 176, 0, 0.3);
+    z-index: 10;
+    min-width: 140px;
+    font-size: 1.15rem;
+    padding: 14px 30px;
+}
+
+.btn-no {
+    background: linear-gradient(45deg, #ff4d6d, #c9184a);
+    z-index: 9;
+    min-width: 140px;
+    font-size: 1.15rem;
+    padding: 14px 30px;
+    transition: transform 0.15s ease, left 0.2s ease, top 0.2s ease;
+}
+
+/* Griglia opzioni dell'appuntamento */
+.options-grid {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 1.2rem 0;
+    flex-wrap: wrap;
+}
+
+.option-card {
+    background: #fff0f3;
+    border: 2px solid #ffccd5;
+    border-radius: 18px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 110px;
+    max-width: 160px;
+}
+
+.option-card.selected {
+    background: #ff477e;
+    color: white;
+    border-color: #ff477e;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 71, 126, 0.35);
+}
+
+.option-card span { font-size: 2.1rem; display: block; margin-bottom: 4px; }
+.option-card p { font-size: 0.95rem; margin: 0; font-weight: 700; color: inherit; }
+
+.activity-feedback {
+    background: #f0f3ff;
+    border: 2px solid #a2d2ff;
+    padding: 12px 16px;
+    border-radius: 16px;
+    color: #2b2d42;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+/* Envelope Card & Expanded 3D Polaroid Section */
+.envelope-card {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 18px;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    border: 2px dashed var(--primary-pink);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.envelope-card:hover {
+    transform: scale(1.01);
+}
+
+.letter-content {
+    display: none;
+    font-style: italic;
+    color: #555;
+    font-size: 1.05rem;
+    margin-top: 12px;
+}
+
+.letter-message {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.polaroid-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0 5px 0;
+}
+
+.polaroid-container {
+    perspective: 1000px;
+    width: 220px;
+    height: 260px;
+    cursor: pointer;
+}
+
+.polaroid-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.polaroid-container.flipped .polaroid-inner {
+    transform: rotateY(180deg);
+}
+
+.polaroid-front, .polaroid-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 12px 18px 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transform: rotate(-2deg);
+}
+
+.polaroid-front img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.polaroid-caption {
+    font-family: 'Caveat', 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 6px;
+}
+
+.polaroid-back {
+    transform: rotateY(180deg) rotate(2deg);
+    background: #fff0f3;
+    border: 2px solid #ffccd5;
+    padding: 20px;
+    text-align: center;
+}
+
+.polaroid-handwritten {
+    font-family: 'Caveat', 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.45rem;
+    color: var(--accent-rose);
+    line-height: 1.4;
+}
+
+/* Coupons Grid */
+.coupons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 1.2rem 0;
+}
+
+.coupon-card {
+    background: #fff;
+    border: 2px dashed #ff85a1;
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.coupon-card.redeemed {
+    opacity: 0.6;
+    background: #e8e8e4;
+    border-color: #aaa;
+}
+
+.coupon-card span { font-size: 1.8rem; display: block; }
+.coupon-card h4 { font-size: 0.95rem; color: var(--accent-rose); margin: 4px 0; font-weight: 700; }
+.coupon-btn {
+    background: var(--accent-rose);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+/* Fortune Section */
+.fortune-section {
+    background: #fdf0f5;
+    border-radius: 18px;
+    padding: 14px;
+    margin: 1.2rem 0;
+    border: 2px solid #ffccd5;
+}
+
+.orb-btn {
+    font-size: 2.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    animation: pulseOrb 2s infinite ease-in-out;
+}
+
+@keyframes pulseOrb {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.fortune-text {
+    font-size: 1rem;
+    color: #4a4e69;
+    font-weight: 600;
+    margin-top: 8px;
+    min-height: 32px;
+}
+
+/* Garden Canvas & Overlays */
+#gardenCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.garden-overlay {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100%;
+    padding: 20px;
+    pointer-events: none;
+}
+
+.garden-overlay * { pointer-events: auto; }
+
+.garden-counter {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--accent-rose);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-top: 60px;
+    border: 2px solid #ffd6ff;
+}
+
+/* --- SEZIONE GATTO AGGIORNATA --- */
+.cat-container {
+    width: 170px;
+    height: 170px;
+    margin: 0 auto;
+    position: relative;
+    left: 0; /* Punto di partenza centrale */
+    cursor: pointer;
+    /* Transizione fluida sulla proprietà 'left' */
+    transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cat-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+    /* Rimuovo transform da qui per evitare conflitti */
+    transition: filter 0.3s ease; 
+}
+
+/* Effetto hover solo se non sta camminando (gestito via JS se necessario, 
+   o semplicemente lascialo, non dovrebbe disturbare troppo) */
+.cat-container:hover .cat-svg {
+    filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
+}
+
+/* CLASSI DI MOVIMENTO (impostano la posizione 'left') */
+.cat-container.walk-right {
+    left: 120px; /* Si sposta a destra */
+}
+
+.cat-container.walk-left {
+    left: -120px; /* Si sposta a sinistra */
+}
+
+/* L'animazione del passo (wiggle) si applica all'SVG 
+   quando il contenitore ha una classe walk */
+.cat-container.walk-right .cat-svg,
+.cat-container.walk-left .cat-svg {
+    animation: catStepWiggle 0.25s infinite alternate ease-in-out;
+}
+
+/* Specchiamo l'SVG quando va a sinistra */
+.cat-container.walk-left .cat-svg {
+    transform: scaleX(-1);
+}
+
+/* Animazione del passo (solo movimento verticale) */
+@keyframes catStepWiggle {
+    0% { transform: translateY(0px); }
+    /* Manteniamo l'eventuale scaleX(-1) se presente via JS o CSS 
+       ma qui definiamo solo il movimento Y per non sovrascrivere */
+    100% { transform: translateY(-7px); }
+}
+
+/* Stato fusa (vibrazione) - si applica all'SVG */
+.cat-container.purring .cat-svg {
+    /* Manteniamo la vibrazione, ma stiamo attenti a non sovrascrivere 
+       il transform del passo se cammina e fa le fusa contemporaneamente.
+       Dato che l'animazione camminata è su walk-right/left, 
+       definiamo una vibrazione che non tocchi scaleX */
+    animation: catPurrVibrate 0.1s infinite alternate ease-in-out;
+}
+
+@keyframes catPurrVibrate {
+    0% { transform: translate(1px, 1px) rotate(-0.5deg); }
+    100% { transform: translate(-1px, -1px) rotate(0.5deg); }
+}
+
+/* --- FINE SEZIONE GATTO AGGIORNATA --- */
+
+.purr-bubble {
+    position: absolute;
+    top: -28px;
+    right: -10px;
+    background: white;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--accent-rose);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.purr-bubble.show { opacity: 1; transform: translateY(0); }
+
+.interactive-note {
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 22px;
+    padding: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.flower-btn-spawn {
+    background: white;
+    color: var(--accent-rose);
+    border: 2px solid var(--accent-rose);
+    padding: 10px 20px;
+    border-radius: 22px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.flower-btn-spawn:hover {
+    background: var(--accent-rose);
+    color: white;
+}
+
+.love-toast {
+    position: fixed;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--accent-rose);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 22px;
+    box-shadow: 0 5px 15px rgba(255, 71, 126, 0.2);
+    pointer-events: none;
+    z-index: 8;
+    animation: floatUpToast 1.5s ease-out forwards;
+}
+
+@keyframes floatUpToast {
+    0% { opacity: 1; transform: translateY(0) scale(0.8); }
+    100% { opacity: 0; transform: translateY(-70px) scale(1.05); }
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+    .screen {
+        padding: 1.8rem 1.2rem;
+        border-radius: 24px;
+    }
+
+    h1 { font-size: 1.7rem; }
+    p { font-size: 1rem; }
+
+    .coupons-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .polaroid-container {
+        width: 190px;
+        height: 230px;
+    }
+
+    .polaroid-front img {
+        height: 150px;
+    }
+}

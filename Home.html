@@ -1,352 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Special Proposal ✨🌸">
+    <meta name="keywords" content="Special Proposal">
+    <meta name="author" content="MeowBloom">
+    <meta name="theme-color" content="#ff477e">
+    <meta name="robots" content="index, follow">
+    <meta name="google" content="notranslate">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <title>A Special Proposal ✨🌸</title>
-    <style>
-        :root {
-            --bg-color: #fdf6f6;
-            --card-bg: #ffffff;
-            --primary-pink: #ff85a1;
-            --accent-rose: #ff477e;
-            --soft-purple: #b5838d;
-            --text-color: #4a4e69;
-            --green-leaf: #70e48c;
-            --yellow-flower: #ffea00;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-        }
-
-        body {
-            background: linear-gradient(135deg, #ffe5ec 0%, #f0efeb 50%, #e8e8e4 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Top Bar Controls (Home, Language & Music in the same bar) */
-        .top-controls {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 8px;
-            z-index: 100;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .top-btn {
-            background: rgba(255, 255, 255, 0.92);
-            border: 2px solid var(--primary-pink);
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-color);
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .top-btn:hover, .top-btn.active {
-            background: var(--accent-rose);
-            color: white;
-            border-color: var(--accent-rose);
-        }
-
-        /* Background Floating Elements */
-        .bg-element {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-
-        .screen {
-            display: none;
-            width: 90%;
-            max-width: 550px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem 2rem;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(255, 133, 161, 0.2);
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            border: 2px solid #ffffff;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1, h2 {
-            color: var(--accent-rose);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        p {
-            color: var(--text-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 14px 20px;
-            border: 2px solid #ffd6ff;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: var(--text-color);
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--accent-rose);
-            box-shadow: 0 0 10px rgba(255, 71, 126, 0.3);
-        }
-
-        .btn {
-            background: linear-gradient(45deg, var(--primary-pink), var(--accent-rose));
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 71, 126, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 71, 126, 0.4);
-        }
-
-        .btn-yes {
-            background: linear-gradient(45deg, #38b000, #70e48c);
-            box-shadow: 0 6px 20px rgba(56, 176, 0, 0.3);
-            z-index: 10;
-        }
-
-        .btn-no {
-            background: linear-gradient(45deg, #ff4d6d, #c9184a);
-            position: absolute;
-            z-index: 9;
-            transition: all 0.2s ease;
-        }
-
-        .button-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            min-height: 120px;
-            position: relative;
-            margin-top: 1rem;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            margin: 1.5rem 0;
-        }
-
-        .option-card {
-            background: #fff0f3;
-            border: 2px solid #ffccd5;
-            border-radius: 16px;
-            padding: 12px 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .option-card:hover, .option-card.selected {
-            background: #ff477e;
-            color: white;
-            border-color: #ff477e;
-            transform: translateY(-3px);
-        }
-
-        .option-card span {
-            font-size: 1.8rem;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .option-card p {
-            font-size: 0.9rem;
-            margin: 0;
-            color: inherit;
-        }
-
-        .envelope-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            border: 2px dashed var(--primary-pink);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .envelope-card:hover {
-            transform: scale(1.02);
-        }
-
-        .letter-content {
-            display: none;
-            font-style: italic;
-            color: #555;
-            margin-top: 10px;
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-
-        /* Garden Screen (Canvas & Interactive Cat) */
-        #gardenCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .garden-overlay {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 100vh;
-            width: 100%;
-            padding: 20px;
-            pointer-events: none;
-        }
-
-        .garden-overlay * {
-            pointer-events: auto;
-        }
-
-        .cat-container {
-            width: 170px;
-            height: 170px;
-            margin: 0 auto;
-            position: relative;
-            cursor: pointer;
-        }
-
-        /* Cat Vibration & Shake Effect */
-        .cat-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.15));
-            transition: transform 0.2s ease;
-        }
-
-        .cat-container:hover .cat-svg {
-            transform: scale(1.05);
-        }
-
-        .cat-container.purring .cat-svg {
-            animation: catVibrate 0.15s infinite alternate ease-in-out;
-        }
-
-        @keyframes catVibrate {
-            0% { transform: scale(1.05) translate(1px, 1px) rotate(0deg); }
-            50% { transform: scale(1.05) translate(-1px, -2px) rotate(-1deg); }
-            100% { transform: scale(1.05) translate(-2px, 1px) rotate(1deg); }
-        }
-
-        .purr-bubble {
-            position: absolute;
-            top: -25px;
-            right: -10px;
-            background: white;
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            color: var(--accent-rose);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .purr-bubble.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .interactive-note {
-            background: rgba(255, 255, 255, 0.92);
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .flower-btn-spawn {
-            background: white;
-            color: var(--accent-rose);
-            border: 2px solid var(--accent-rose);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .flower-btn-spawn:hover {
-            background: var(--accent-rose);
-            color: white;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Unified Top Controls Bar (Home, EN, Singlish, Sinhala, Music) -->
+    <!-- Unified Top Controls Bar -->
     <div class="top-controls">
         <button class="top-btn" id="homeBtn" style="display: none;" onclick="resetToHome()">🏠 Home</button>
         <button class="top-btn active" id="lang-en" onclick="setLanguage('en')">🇬🇧 EN</button>
@@ -356,16 +26,16 @@
     </div>
 
     <!-- Background Elements -->
-    <div class="bg-element" style="top: 10%; left: 10%; font-size: 2rem;">🌸</div>
-    <div class="bg-element" style="top: 20%; right: 15%; font-size: 2.5rem; animation-delay: 1s;">🐱</div>
-    <div class="bg-element" style="bottom: 15%; left: 20%; font-size: 1.8rem; animation-delay: 2s;">🌺</div>
-    <div class="bg-element" style="bottom: 25%; right: 10%; font-size: 2.2rem; animation-delay: 1.5s;">✨</div>
+    <div class="bg-element" style="top: 10%; left: 10%; font-size: 2.2rem;">🌸</div>
+    <div class="bg-element" style="top: 20%; right: 15%; font-size: 2.8rem; animation-delay: 1s;">🐱</div>
+    <div class="bg-element" style="bottom: 15%; left: 20%; font-size: 2rem; animation-delay: 2s;">🌺</div>
+    <div class="bg-element" style="bottom: 25%; right: 10%; font-size: 2.5rem; animation-delay: 1.5s;">✨</div>
 
     <!-- STEP 1: WELCOME FORM -->
     <div id="step1" class="screen active">
         <h1 id="s1-title">Hello! 🌸</h1>
         <p id="s1-subtitle">I have a tiny surprise for you. What's your name?</p>
-        <input type="text" id="userNameInput" placeholder="Helani" autocomplete="off">
+        <input type="text" id="userNameInput" placeholder="Your name" autocomplete="off">
         <br>
         <button class="btn" id="s1-btn" onclick="goToStep2()">Let's Start ✨</button>
     </div>
@@ -381,486 +51,141 @@
         </div>
     </div>
 
-    <!-- STEP 3: DATE PLAN & CONFIRMATION -->
+    <!-- STEP 3: DATE PLAN, CALENDAR, COUPONS & ORB -->
     <div id="step3" class="screen">
         <h1 id="s3-title">I knew you'd say yes! 🥰</h1>
         <p id="s3-subtitle">What would you like to do on our date?</p>
         
         <div class="options-grid">
-            <div class="option-card selected" onclick="selectOption(this)">
+            <div class="option-card selected" onclick="selectOption(this, 'icecream')">
                 <span>🍦</span>
-                <p id="opt1">Ice Cream Date</p>
+                <p id="opt1">Ice Cream</p>
             </div>
-            <div class="option-card" onclick="selectOption(this)">
+            <div class="option-card" onclick="selectOption(this, 'flowers')">
                 <span>🌸</span>
-                <p id="opt2">Flower Garden</p>
+                <p id="opt2">Flowers</p>
             </div>
-            <div class="option-card" onclick="selectOption(this)">
+            <div class="option-card" onclick="selectOption(this, 'cat')">
                 <span>🐱</span>
                 <p id="opt3">Cat Cuddles</p>
             </div>
         </div>
 
+        <div class="activity-feedback" id="activityBox">
+            ✨ Yummy ice cream together! What's your favorite flavor? 🍦
+        </div>
+
+        <p class="section-label" id="calLabel">Select a day for our date: 📅</p>
+        <input type="date" id="datePicker">
+
+        <!-- Action buttons: WhatsApp & Google Calendar -->
+        <div style="margin-bottom: 1.2rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn" style="background: #25d366;" onclick="sendWhatsAppMessage()">💬 Send on WhatsApp</button>
+            <button class="btn" style="background: #4285f4;" onclick="addToGoogleCalendar()">📅 Save to Calendar</button>
+        </div>
+
+        <!-- Fortune Teller Orb Game -->
+        <div class="fortune-section">
+            <p class="section-label" id="orbTitle">🔮 Future Crystal Ball</p>
+            <button class="orb-btn" onclick="revealFortune()">🔮</button>
+            <div class="fortune-text" id="fortuneText">Click the orb to see our fortune!</div>
+        </div>
+
+        <!-- Secret Letter & Enhanced 3D Polaroid -->
         <div class="envelope-card" onclick="toggleLetter()">
             <span style="font-size: 2rem;">✉️</span>
-            <p style="font-size: 0.95rem; font-weight: bold; margin: 4px 0 0 0;" id="env-title">Click to open your secret note!</p>
+            <p id="env-title" style="font-weight: bold; margin-top: 6px;">Click to open your secret note & Polaroid! ✉️</p>
+            
             <div class="letter-content" id="letterText">
-                "Every moment with you brings a smile to my face. I can't wait for our date!"
+                <p class="letter-message">"Every moment with you brings a smile to my face. I can't wait for our date!"</p>
+                
+                <!-- Expanded 3D Polaroid -->
+                <div class="polaroid-wrapper">
+                    <div class="polaroid-container" onclick="event.stopPropagation(); this.classList.toggle('flipped');">
+                        <div class="polaroid-inner">
+                            <div class="polaroid-front">
+                                <div class="polaroid-img-frame">
+                                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=80" alt="Cute Tuxedo Cat">
+                                </div>
+                                <span class="polaroid-caption">Our Special Memory ❤️</span>
+                            </div>
+                            <div class="polaroid-back">
+                                <p class="polaroid-handwritten">"You & Me + Kitties & Ice Cream = Perfection! 💕"</p>
+                                <span style="font-size: 0.8rem; opacity: 0.8; margin-top: 10px;">(Tap to flip)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button class="btn" id="s3-btn" onclick="goToGarden()">Enter Your Garden 🌺</button>
+        <!-- Love Coupons Grid -->
+        <p class="section-label" id="couponHeader" style="margin-top: 1.5rem;">🎟️ Your Special Coupons</p>
+        <div class="coupons-grid">
+            <div class="coupon-card" id="coupon1">
+                <span>🍦</span>
+                <h4>Unlimited Ice Cream</h4>
+                <button class="coupon-btn" onclick="redeemCoupon('coupon1')">Redeem</button>
+            </div>
+            <div class="coupon-card" id="coupon2">
+                <span>💆‍♀️</span>
+                <h4>Relax Massage</h4>
+                <button class="coupon-btn" onclick="redeemCoupon('coupon2')">Redeem</button>
+            </div>
+            <div class="coupon-card" id="coupon3">
+                <span>🎬</span>
+                <h4>Movie & Cat Night</h4>
+                <button class="coupon-btn" onclick="redeemCoupon('coupon3')">Redeem</button>
+            </div>
+            <div class="coupon-card" id="coupon4">
+                <span>🍕</span>
+                <h4>Favorite Pizza Date</h4>
+                <button class="coupon-btn" onclick="redeemCoupon('coupon4')">Redeem</button>
+            </div>
+        </div>
+
+        <button class="btn" id="s3-btn" onclick="goToGarden()" style="margin-top: 1.2rem; font-size: 1.15rem; padding: 14px 32px;">Enter Your Garden 🌺</button>
     </div>
 
-    <!-- STEP 4: INTERACTIVE GARDEN & CUSTOM BLACK AND WHITE CAT -->
+    <!-- STEP 4: INTERACTIVE GARDEN & REFINED TUXEDO CAT -->
     <canvas id="gardenCanvas"></canvas>
     
     <div id="step4" class="garden-overlay" style="display: none;">
+        <div class="garden-counter" id="gardenCounter">Fiori piantati: 8 🌸</div>
+
         <div class="interactive-note">
             <h2 id="s4-title">A garden just for you! 🌸</h2>
-            <p id="s4-subtitle" style="font-size: 0.95rem; margin-bottom: 0.8rem;">Click on the screen to bloom flowers, or pet the kitty below!</p>
+            <p id="s4-subtitle">Click on the screen to bloom flowers, or pet the kitty below!</p>
             <button class="flower-btn-spawn" id="s4-btn" onclick="spawnRandomFlower()">Bloom a Flower 🌼</button>
         </div>
-
-        <!-- Custom Black and White Cat SVG -->
-        <div class="cat-container" id="catContainer" onclick="petCat()">
-            <div class="purr-bubble" id="purrBubble">Purr... 🐾</div>
+    <div class="cat-container" id="catContainer" onclick="petAndWalkCat(event)">
+    <div class="purr-bubble" id="purrBubble">Purr... 🐾</div>
             <svg class="cat-svg" viewBox="0 0 200 200">
-                <!-- Body (White with Black Spot) -->
-                <ellipse cx="100" cy="150" rx="46" ry="36" fill="#ffffff" stroke="#2b2d42" stroke-width="2"/>
-                <path d="M 115 125 C 135 120, 145 145, 130 165 C 120 170, 110 150, 115 125 Z" fill="#1e1e24" />
-                
-                <!-- Tail (Black) -->
-                <path d="M 140 160 Q 175 160 165 130 Q 155 110 145 130" stroke="#1e1e24" stroke-width="12" fill="none" stroke-linecap="round"/>
-
-                <!-- Head (White base) -->
-                <circle cx="100" cy="95" r="36" fill="#ffffff" stroke="#2b2d42" stroke-width="2"/>
-                
-                <!-- Black Face Patches -->
-                <path d="M 66 85 C 65 65, 90 70, 85 95 C 80 110, 68 105, 66 85 Z" fill="#1e1e24" />
-                <path d="M 134 85 C 135 65, 110 70, 115 95 C 120 110, 132 105, 134 85 Z" fill="#1e1e24" />
-
-                <!-- Ears (Black with Pink Inner) -->
-                <polygon points="68,70 78,38 95,65" fill="#1e1e24" />
-                <polygon points="72,67 78,45 88,63" fill="#ffb5a7" />
-
-                <polygon points="132,70 122,38 105,65" fill="#1e1e24" />
-                <polygon points="128,67 122,45 112,63" fill="#ffb5a7" />
-
-                <!-- Happy Closed Eyes -->
-                <path d="M 80 92 Q 87 84 92 92" stroke="#2b2d42" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <path d="M 108 92 Q 113 84 120 92" stroke="#2b2d42" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-                <!-- Pink Nose & Cute Mouth -->
-                <polygon points="98,97 102,97 100,101" fill="#ff477e" />
-                <path d="M 94 103 Q 100 108 106 103" stroke="#2b2d42" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-
-                <!-- Whiskers -->
-                <line x1="58" y1="94" x2="78" y2="97" stroke="#2b2d42" stroke-width="1.5" />
-                <line x1="58" y1="100" x2="78" y2="100" stroke="#2b2d42" stroke-width="1.5" />
-                <line x1="142" y1="94" x2="122" y2="97" stroke="#2b2d42" stroke-width="1.5" />
-                <line x1="142" y1="100" x2="122" y2="100" stroke="#2b2d42" stroke-width="1.5" />
-
-                <!-- Pink Hibiscus Flower on Ear -->
-                <circle cx="126" cy="52" r="9" fill="#ff85a1" />
-                <circle cx="126" cy="52" r="3.5" fill="#ffea00" />
+                <path d="M 135 155 Q 170 155 160 120 Q 150 100 140 125" stroke="#18181b" stroke-width="13" fill="none" stroke-linecap="round"/>
+                <ellipse cx="100" cy="150" rx="46" ry="35" fill="#ffffff" stroke="#18181b" stroke-width="2.5"/>
+                <path d="M 112 122 C 135 120, 148 145, 132 166 C 120 171, 108 148, 112 122 Z" fill="#18181b" />
+                <path d="M 90 135 L 100 152 L 110 135 Z" fill="#ffffff" />
+                <circle cx="100" cy="94" r="37" fill="#ffffff" stroke="#18181b" stroke-width="2.5"/>
+                <path d="M 64 85 C 62 62, 90 68, 84 94 C 78 110, 66 102, 64 85 Z" fill="#18181b" />
+                <path d="M 136 85 C 138 62, 110 68, 116 94 C 122 110, 134 102, 136 85 Z" fill="#18181b" />
+                <polygon points="67,68 76,35 94,63" fill="#18181b" />
+                <polygon points="71,65 76,43 87,60" fill="#ffb5a7" />
+                <polygon points="133,68 124,35 106,63" fill="#18181b" />
+                <polygon points="128,65 124,43 113,60" fill="#ffb5a7" />
+                <path d="M 78 90 Q 86 81 92 90" stroke="#18181b" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+                <path d="M 108 90 Q 114 81 122 90" stroke="#18181b" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+                <polygon points="98,96 102,96 100,100" fill="#ff477e" />
+                <path d="M 94 102 Q 100 108 106 102" stroke="#18181b" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                <line x1="56" y1="92" x2="76" y2="95" stroke="#18181b" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="56" y1="99" x2="76" y2="99" stroke="#18181b" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="144" y1="92" x2="124" y2="95" stroke="#18181b" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="144" y1="99" x2="124" y2="99" stroke="#18181b" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="125" cy="50" r="9.5" fill="#ff85a1" />
+                <circle cx="125" cy="50" r="3.5" fill="#ffea00" />
             </svg>
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        let currentLang = 'en';
-        let userName = "Helani";
-        let noCount = 0;
-        let yesBtnScale = 1;
-        let noBtnScale = 1;
-
-        const translations = {
-            en: {
-                s1Title: "Hello! 🌸",
-                s1Subtitle: "I have a tiny surprise for you. What's your name?",
-                s1Btn: "Let's Start ✨",
-                s2Title: "Plans for us, {name}? 💕",
-                s2Subtitle: "Would you like to go out for a special ice cream date with me?",
-                yesBtn: "YES! 💖",
-                noBtn: "No 😜",
-                noMessages: [
-                    "Are you sure? 🥺",
-                    "Think about it! 💭",
-                    "Look at YES growing! 😉",
-                    "Come on, ice cream! 🍦",
-                    "You can't click me! 😜"
-                ],
-                s3Title: "I knew you'd say yes! 🥰",
-                s3Subtitle: "What would you like to do on our date, {name}?",
-                opt1: "Ice Cream Date",
-                opt2: "Flower Garden",
-                opt3: "Cat Cuddles",
-                envTitle: "Click to open your secret note! ✉️",
-                letterText: `"Every moment with you brings a smile to my face. I can't wait for our date!"`,
-                s3Btn: "Enter Your Garden 🌺",
-                s4Title: "A garden just for you, {name}! 🌸",
-                s4Subtitle: "Click on the screen to bloom flowers, or pet the kitty below!",
-                s4Btn: "Bloom a Flower 🌼",
-                purrSounds: ["Purr... 💕", "Meow! 🌸", "Prrr... 🥰", "Meow meow! 🐾"]
-            },
-            singlish: {
-                s1Title: "Ayubowan! 🌸",
-                s1Subtitle: "Mata podi surprise ekak thiyenawa. Oyage nama mokadda?",
-                s1Btn: "Patan gamu ✨",
-                s2Title: "Apita plans thiyenawada, {name}? 💕",
-                s2Subtitle: "Mawath ekka special ice cream date ekakata yanna kamathi da?",
-                yesBtn: "OW! 💖",
-                noBtn: "Baha 😜",
-                noMessages: [
-                    "Sureda? 🥺",
-                    "Poddak hithanna! 💭",
-                    "Baha kiyanna epa! 😱",
-                    "Aney YES click karanna! 😉",
-                    "Oyatha baa mawa click karanna! 😜"
-                ],
-                s3Title: "Man denagena hitiya ow kiyawi kiyala! 🥰",
-                s3Subtitle: "Mokadda karanna kamathi ape date ekedi, {name}?",
-                opt1: "Ice Cream Bonawada",
-                opt2: "Mal Garden Ekata Yamu",
-                opt3: "Poochanta Adare Karamu",
-                envTitle: "Podi secret note ekak thiyenawa, click karanna! ✉️",
-                letterText: `"Oya ekka inna hama mohothakama mata godak sathutui. I can't wait for our date!"`,
-                s3Btn: "Garden ekata yamu 🌺",
-                s4Title: "{name} ta witharakma garden ekak! 🌸",
-                s4Subtitle: "Screen eka touch karala mal wawanna, poosawath poddak muththu karanna!",
-                s4Btn: "Malak Pop Karanna 🌼",
-                purrSounds: ["Purr... 💕", "Meow! 🌸", "Prrr... 🥰", "Meow meow! 🐾"]
-            },
-            si: {
-                s1Title: "ආයුබෝවන්! 🌸",
-                s1Subtitle: "මා ළඟ පොඩි සප්‍රයිස් එකක් තියෙනවා. ඔයාගේ නම මොකක්ද?",
-                s1Btn: "පටන් ගමු ✨",
-                s2Title: "{name}, අපිට ඩේට් එකක් යමුද? 💕",
-                s2Subtitle: "මාත් එක්ක ලස්සන අයිස්ක්‍රීම් ඩේට් එකකට යන්න කැමතිද?",
-                yesBtn: "ඔව්! 💖",
-                noBtn: "බෑ 😜",
-                noMessages: [
-                    "ෂුවර්ද? 🥺",
-                    "පොඩ්ඩක් හිතන්න! 💭",
-                    "බෑ කියන්න එපා! 😱",
-                    "අනේ YES ක්ලික් කරන්න! 😉",
-                    "ඔයාට බෑ මාව ක්ලික් කරන්න! 😜"
-                ],
-                s3Title: "මං දැනන් හිටියා ඔව් කියනවා කියලා! 🥰",
-                s3Subtitle: "{name}, අපේ ඩේට් එකේදී මොකද කරන්න කැමති?",
-                opt1: "අයිස්ක්‍රීම් බොමු",
-                opt2: "මල් වත්ත බලමු",
-                opt3: "පූසෝ එක්ක සෙල්ලම් කරමු",
-                envTitle: "ඔයාට ආදරණීය පණිවිඩයක්, ක්ලික් කරන්න! ✉️",
-                letterText: `"ඔයා එක්ක ඉන්න හැම මොහොතකම මට ගොඩක් සතුටුයි. මං බලන් ඉන්නවා අපේ ඩේට් එක වෙනකම්!"`,
-                s3Btn: "මල් වත්තට යමු 🌺",
-                s4Title: "{name} ට විතරක්ම මල් වත්තක්! 🌸",
-                s4Subtitle: "ස්ක්‍රීන් එක ටච් කරලා මල් පිපෙන්න අරින්න, පූසව අතගාන්න!",
-                s4Btn: "මලක් පිපෙන්න අරින්න 🌼",
-                purrSounds: ["Purr... 💕", "මියාෆ්! 🌸", "Prrr... 🥰", "මියාෆ් මියාෆ්! 🐾"]
-            }
-        };
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.querySelectorAll('.top-btn').forEach(btn => {
-                if (btn.id.startsWith('lang-')) btn.classList.remove('active');
-            });
-            document.getElementById(`lang-${lang}`).classList.add('active');
-
-            const t = translations[lang];
-
-            document.getElementById('s1-title').textContent = t.s1Title;
-            document.getElementById('s1-subtitle').textContent = t.s1Subtitle;
-            document.getElementById('s1-btn').textContent = t.s1Btn;
-
-            document.getElementById('s2-title').textContent = t.s2Title.replace('{name}', userName);
-            document.getElementById('s2-subtitle').textContent = t.s2Subtitle;
-            document.getElementById('yesBtn').textContent = t.yesBtn;
-            document.getElementById('noBtn').textContent = t.noBtn;
-
-            document.getElementById('s3-title').textContent = t.s3Title;
-            document.getElementById('s3-subtitle').textContent = t.s3Subtitle.replace('{name}', userName);
-            document.getElementById('opt1').textContent = t.opt1;
-            document.getElementById('opt2').textContent = t.opt2;
-            document.getElementById('opt3').textContent = t.opt3;
-            document.getElementById('env-title').textContent = t.envTitle;
-            document.getElementById('letterText').textContent = t.letterText;
-            document.getElementById('s3-btn').textContent = t.s3Btn;
-
-            document.getElementById('s4-title').textContent = t.s4Title.replace('{name}', userName);
-            document.getElementById('s4-subtitle').textContent = t.s4Subtitle;
-            document.getElementById('s4-btn').textContent = t.s4Btn;
-        }
-
-        function goToStep2() {
-            const input = document.getElementById('userNameInput').value.trim();
-            if (input !== "") userName = input;
-            
-            setLanguage(currentLang);
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-            
-            initNoBtn();
-        }
-
-        function initNoBtn() {
-            const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
-
-            const moveNoBtn = () => {
-                noCount++;
-                noBtnScale = Math.max(0.3, noBtnScale - 0.1);
-                yesBtnScale += 0.25;
-
-                yesBtn.style.transform = `scale(${yesBtnScale})`;
-                noBtn.style.transform = `scale(${noBtnScale})`;
-
-                const t = translations[currentLang];
-                const msgIndex = Math.min(noCount - 1, t.noMessages.length - 1);
-                noBtn.textContent = t.noMessages[msgIndex];
-
-                const group = document.getElementById('buttonGroup');
-                const rect = group.getBoundingClientRect();
-
-                const randomX = (Math.random() - 0.5) * (rect.width - 80);
-                const randomY = (Math.random() - 0.5) * (rect.height - 40);
-
-                noBtn.style.left = `${randomX}px`;
-                noBtn.style.top = `${randomY}px`;
-            };
-
-            noBtn.addEventListener('mouseover', moveNoBtn);
-            noBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                moveNoBtn();
-            });
-        }
-
-        function goToStep3() {
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.add('active');
-        }
-
-        function toggleLetter() {
-            const text = document.getElementById('letterText');
-            text.style.display = (text.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function selectOption(card) {
-            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-        }
-
-        function goToGarden() {
-            document.getElementById('step3').classList.remove('active');
-            document.getElementById('step4').style.display = 'flex';
-            document.getElementById('homeBtn').style.display = 'inline-block';
-            initGardenCanvas();
-        }
-
-        function resetToHome() {
-            document.getElementById('step4').style.display = 'none';
-            document.getElementById('homeBtn').style.display = 'none';
-            
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('step1').classList.add('active');
-
-            noCount = 0;
-            yesBtnScale = 1;
-            noBtnScale = 1;
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            if (yesBtn && noBtn) {
-                yesBtn.style.transform = 'scale(1)';
-                noBtn.style.transform = 'scale(1)';
-                noBtn.style.position = 'relative';
-                noBtn.style.left = 'auto';
-                noBtn.style.top = 'auto';
-            }
-        }
-
-        // Cat Pet Interaction with Physical Vibration + Visual Shake
-        function petCat() {
-            const container = document.getElementById('catContainer');
-            const bubble = document.getElementById('purrBubble');
-            const sounds = translations[currentLang].purrSounds;
-
-            // Trigger physical phone vibration if supported
-            if ("vibrate" in navigator) {
-                navigator.vibrate([100, 50, 100, 50, 100]);
-            }
-
-            // Visual purring animation
-            container.classList.add('purring');
-            setTimeout(() => container.classList.remove('purring'), 1200);
-
-            bubble.textContent = sounds[Math.floor(Math.random() * sounds.length)];
-            bubble.classList.add('show');
-            setTimeout(() => bubble.classList.remove('show'), 2000);
-
-            for (let i = 0; i < 4; i++) {
-                spawnPetalOrHeart(window.innerWidth / 2 + (Math.random() - 0.5) * 120, window.innerHeight - 120);
-            }
-        }
-
-        // Background Web Audio Melody
-        let audioCtx, isPlaying = false;
-        function toggleAudio() {
-            const btn = document.getElementById('audioToggle');
-            if (!isPlaying) {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                isPlaying = true;
-                btn.textContent = "🔊 Playing";
-                playLullaby();
-            } else {
-                isPlaying = false;
-                btn.textContent = "🎵 Music";
-            }
-        }
-
-        function playLullaby() {
-            if (!isPlaying) return;
-            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23];
-            let i = 0;
-
-            const loop = setInterval(() => {
-                if (!isPlaying) { clearInterval(loop); return; }
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(notes[i % notes.length], audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 1.5);
-                i++;
-            }, 800);
-        }
-
-        // Interactive Flower Canvas Engine
-        let canvas, ctx;
-        let flowers = [];
-        let particles = [];
-
-        function initGardenCanvas() {
-            canvas = document.getElementById('gardenCanvas');
-            ctx = canvas.getContext('2d');
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            window.addEventListener('click', (e) => {
-                if (e.target.closest('.interactive-note') || e.target.closest('.cat-container') || e.target.closest('.top-controls')) return;
-                addFlower(e.clientX, e.clientY);
-            });
-
-            if (flowers.length === 0) {
-                for (let i = 0; i < 8; i++) {
-                    const x = Math.random() * canvas.width;
-                    const y = canvas.height - 50 - Math.random() * 150;
-                    addFlower(x, y);
-                }
-            }
-
-            animate();
-        }
-
-        function resizeCanvas() {
-            if (!canvas) return;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class Flower {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.maxSize = 25 + Math.random() * 20;
-                this.currentSize = 0;
-                this.petalColor = ['#ff85a1', '#ff477e', '#f72585', '#7209b7', '#ffb703'][Math.floor(Math.random() * 5)];
-                this.centerColor = '#ffea00';
-                this.petals = 5 + Math.floor(Math.random() * 3);
-                this.growthSpeed = 0.8 + Math.random() * 0.5;
-            }
-
-            draw() {
-                if (this.currentSize < this.maxSize) this.currentSize += this.growthSpeed;
-
-                ctx.save();
-                ctx.translate(this.x, this.y);
-
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.quadraticCurveTo(-10, 50, 0, canvas.height - this.y);
-                ctx.strokeStyle = '#2b9348';
-                ctx.lineWidth = 4;
-                ctx.stroke();
-
-                for (let i = 0; i < this.petals; i++) {
-                    const angle = (Math.PI * 2 / this.petals) * i;
-                    const px = Math.cos(angle) * (this.currentSize * 0.8);
-                    const py = Math.sin(angle) * (this.currentSize * 0.8);
-
-                    ctx.beginPath();
-                    ctx.arc(px, py, this.currentSize * 0.6, 0, Math.PI * 2);
-                    ctx.fillStyle = this.petalColor;
-                    ctx.fill();
-                }
-
-                ctx.beginPath();
-                ctx.arc(0, 0, this.currentSize * 0.4, 0, Math.PI * 2);
-                ctx.fillStyle = this.centerColor;
-                ctx.fill();
-
-                ctx.restore();
-            }
-        }
-
-        function addFlower(x, y) { flowers.push(new Flower(x, y)); }
-
-        function spawnRandomFlower() {
-            const x = Math.random() * window.innerWidth;
-            const y = window.innerHeight - 80 - Math.random() * 200;
-            addFlower(x, y);
-        }
-
-        function spawnPetalOrHeart(x, y) {
-            particles.push({
-                x: x,
-                y: y,
-                size: 8 + Math.random() * 10,
-                vy: -1 - Math.random() * 2,
-                vx: (Math.random() - 0.5) * 2,
-                opacity: 1,
-                symbol: Math.random() > 0.5 ? '🌸' : '💖'
-            });
-        }
-
-        function animate() {
-            if (!ctx) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            flowers.forEach(flower => flower.draw());
-
-            for (let i = particles.length - 1; i >= 0; i--) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.opacity -= 0.015;
-
-                ctx.font = `${p.size}px Arial`;
-                ctx.globalAlpha = Math.max(0, p.opacity);
-                ctx.fillText(p.symbol, p.x, p.y);
-                ctx.globalAlpha = 1;
-
-                if (p.opacity <= 0) particles.splice(i, 1);
-            }
-
-            requestAnimationFrame(animate);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
