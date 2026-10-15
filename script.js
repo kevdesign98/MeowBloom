@@ -28,15 +28,15 @@ const translations = {
         opt1: "Ice Cream", opt2: "Flowers", opt3: "Cat Cuddles",
         calLabel: "Select a day for our date: 📅",
         envTitle: "Click to open your secret note & Polaroid! ✉️",
-        letterText: `"Every moment with you brings a smile to my face. I can't wait for our date!"`,
+        letterText: `"Every moment with you brings a smile to my face. Distance means so little when someone means so much!"`,
         s3Btn: "Enter Your Garden 🌺",
         s4Title: "A garden just for you, {name}! 🌸",
         s4Subtitle: "Click on the screen to bloom flowers, or pet the kitty below!",
         s4Btn: "Bloom a Flower 🌼",
         purrSounds: ["Purr... 💕", "Meow! 🌸", "Prrr... 🥰", "Meow meow! 🐾"],
         counterText: "Flowers bloomed: ",
-        orbTitle: "🔮 Future Crystal Ball",
-        orbDefault: "Click the orb to see our fortune!",
+        orbTitle: "🔮 Fortune & De-Stress Machine",
+        orbDefault: "Click the orb for a sweet fortune & relax vibe!",
         couponHeader: "🎟️ Your Special Coupons",
         fortunes: [
             "Destiny says: You owe me a kiss today! 😘",
@@ -65,7 +65,7 @@ const translations = {
         opt1: "Ice Cream", opt2: "Mal", opt3: "Cat Cuddles",
         calLabel: "Ape date ekata dawasak thoranna: 📅",
         envTitle: "Podi secret note ekak thiyenawa, click karanna! ✉️",
-        letterText: `"Oya ekka inna hama mohothakama mata godak sathutui. I can't wait for our date!"`,
+        letterText: `"Oya ekka inna hama mohothakama mata godak sathutui. Distance means so little when someone means so much!"`,
         s3Btn: "Garden ekata yamu 🌺",
         s4Title: "{name} ta witharakma garden ekak! 🌸",
         s4Subtitle: "Screen eka touch karala mal wawanna, poosawath poddak muththu karanna!",
@@ -102,7 +102,7 @@ const translations = {
         opt1: "අයිස්ක්‍රීම්", opt2: "මල්", opt3: "පූසෝ",
         calLabel: "අපේ ඩේට් එකට දවසක් තෝරන්න: 📅",
         envTitle: "ඔයාට ආදරණීය පණිවිඩයක්, ක්ලික් කරන්න! ✉️",
-        letterText: `"ඔයා එක්ක ඉන්න හැම මොහොතකම මට ගොඩක් සතුටුයි. මං බලන් ඉන්නවා අපේ ඩේට් එක වෙනකම්!"`,
+        letterText: `"ඔයා එක්ක ඉන්න හැම මොහොතකම මට ගොඩක් සතුටුයි. දුර කියන්නේ ප්‍රශ්නයක් නෙවෙයි ආදරේ තියෙනවා නම්!"`,
         s3Btn: "මල් වත්තට යමු 🌺",
         s4Title: "{name} ට විතරක්ම මල් වත්තක්! 🌸",
         s4Subtitle: "ස්ක්‍රීන් එක ටච් කරලා මල් පිපෙන්න අරින්න, පූසව අතගාන්න!",
@@ -227,9 +227,19 @@ function initNoBtn() {
     noBtn.addEventListener('click', moveNoBtn);
 }
 
+// --- GO TO STEP 3 CON ANIMAZIONE BIGLIETTO AEREO ---
 function goToStep3() {
     document.getElementById('step2').classList.remove('active');
-    document.getElementById('step3').classList.add('active');
+    const step3 = document.getElementById('step3');
+    step3.classList.add('active');
+
+    // Innesca l'animazione di volo del biglietto aereo
+    const ticket = document.querySelector('.boarding-pass');
+    if (ticket) {
+        ticket.style.animation = 'none';
+        ticket.offsetHeight; // Reflow per resettare l'animazione
+        ticket.style.animation = 'ticketFlyIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+    }
 }
 
 function toggleLetter() {
@@ -296,6 +306,14 @@ function resetToHome() {
 }
 
 // --- INTERAZIONE TAP / CLICK E PASSEGGIATA DEL GATTO ---
+function startPetting(e) {
+    petAndWalkCat(e);
+}
+
+function stopPetting(e) {
+    if (e) e.stopPropagation();
+}
+
 function petAndWalkCat(e) {
     if (e) e.stopPropagation();
     if (isCatMoving) return; // Se sta già camminando, attende la fine
@@ -331,7 +349,7 @@ function petAndWalkCat(e) {
         container.classList.add('walk-left');
 
         setTimeout(() => {
-            // FASE C: Torna al centro (rimuove la classe e resetta left a 0px)
+            // FASE C: Torna al centro
             container.classList.remove('walk-left');
             container.classList.remove('purring');
             bubble.classList.remove('show');

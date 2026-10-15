@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="style.css">
     <title>A Special Proposal ✨🌸</title>
 </head>
+
 <body>
 
     <!-- Unified Top Controls Bar -->
@@ -44,73 +45,79 @@
     <div id="step2" class="screen">
         <h1 id="s2-title">Plans for us? 💕</h1>
         <p id="s2-subtitle">Would you like to go out for a special ice cream date with me?</p>
-        
+
         <div class="button-group" id="buttonGroup">
             <button class="btn btn-yes" id="yesBtn" onclick="goToStep3()">YES! 💖</button>
             <button class="btn btn-no" id="noBtn">No 😜</button>
         </div>
     </div>
 
-    <!-- STEP 3: DATE PLAN, CALENDAR, COUPONS & ORB -->
+    <!-- STEP 3: THE BOARDING PASS, TWO WORLDS POLAROID, STICKY COUPONS & DE-STRESS ORB -->
     <div id="step3" class="screen">
         <h1 id="s3-title">I knew you'd say yes! 🥰</h1>
         <p id="s3-subtitle">What would you like to do on our date?</p>
-        
-        <div class="options-grid">
-            <div class="option-card selected" onclick="selectOption(this, 'icecream')">
-                <span>🍦</span>
-                <p id="opt1">Ice Cream</p>
+
+        <!-- ✈️ IDEA 1: THE BOARDING PASS TICKET CON ANIMAZIONE D'INGRESSO -->
+        <div class="boarding-pass fly-in-ticket">
+            <div class="pass-header">
+                <span class="flight-badge">FLIGHT #LOVE2026</span>
+                <span class="flight-route">FCO/MXP ✈️ CMB</span>
             </div>
-            <div class="option-card" onclick="selectOption(this, 'flowers')">
-                <span>🌸</span>
-                <p id="opt2">Flowers</p>
+            <div class="pass-body">
+                <div class="options-grid">
+                    <div class="option-card selected" onclick="selectOption(this, 'icecream')">
+                        <span>🍦</span>
+                        <p id="opt1">Ice Cream</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption(this, 'flowers')">
+                        <span>🌸</span>
+                        <p id="opt2">Flowers</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption(this, 'cat')">
+                        <span>🐱</span>
+                        <p id="opt3">Cat Cuddles</p>
+                    </div>
+                </div>
+
+                <div class="activity-feedback" id="activityBox">
+                    ✨ Yummy ice cream together! What's your favorite flavor? 🍦
+                </div>
+
+                <p class="section-label" id="calLabel">Select a day for our date: 📅</p>
+                <input type="date" id="datePicker">
+
+                <div class="ticket-actions">
+                    <button class="btn btn-wa" onclick="sendWhatsAppMessage()">💬 Send on WhatsApp</button>
+                    <button class="btn btn-cal" onclick="addToGoogleCalendar()">📅 Save to Calendar</button>
+                </div>
             </div>
-            <div class="option-card" onclick="selectOption(this, 'cat')">
-                <span>🐱</span>
-                <p id="opt3">Cat Cuddles</p>
+            <div class="pass-stub">
+                <span>SEAT: 01A (Together Soon)</span>
+                <span>STATUS: CONFIRMED ❤️</span>
             </div>
         </div>
 
-        <div class="activity-feedback" id="activityBox">
-            ✨ Yummy ice cream together! What's your favorite flavor? 🍦
-        </div>
-
-        <p class="section-label" id="calLabel">Select a day for our date: 📅</p>
-        <input type="date" id="datePicker">
-
-        <!-- Action buttons: WhatsApp & Google Calendar -->
-        <div style="margin-bottom: 1.2rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <button class="btn" style="background: #25d366;" onclick="sendWhatsAppMessage()">💬 Send on WhatsApp</button>
-            <button class="btn" style="background: #4285f4;" onclick="addToGoogleCalendar()">📅 Save to Calendar</button>
-        </div>
-
-        <!-- Fortune Teller Orb Game -->
-        <div class="fortune-section">
-            <p class="section-label" id="orbTitle">🔮 Future Crystal Ball</p>
-            <button class="orb-btn" onclick="revealFortune()">🔮</button>
-            <div class="fortune-text" id="fortuneText">Click the orb to see our fortune!</div>
-        </div>
-
-        <!-- Secret Letter & Enhanced 3D Polaroid -->
+        <!-- 📔 IDEA 2: THE SCRAPBOOK & TWO WORLDS POLAROID -->
         <div class="envelope-card" onclick="toggleLetter()">
-            <span style="font-size: 2rem;">✉️</span>
+            <div class="wax-seal" style="font-size: 2rem;">💌</div>
             <p id="env-title" style="font-weight: bold; margin-top: 6px;">Click to open your secret note & Polaroid! ✉️</p>
-            
+
             <div class="letter-content" id="letterText">
-                <p class="letter-message">"Every moment with you brings a smile to my face. I can't wait for our date!"</p>
-                
-                <!-- Expanded 3D Polaroid -->
+                <p class="letter-message">"Every moment with you brings a smile to my face. Distance means so little when someone means so much!"</p>
+
                 <div class="polaroid-wrapper">
                     <div class="polaroid-container" onclick="event.stopPropagation(); this.classList.toggle('flipped');">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
-                                <div class="polaroid-img-frame">
-                                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=80" alt="Cute Tuxedo Cat">
+                                <div class="two-worlds-frame">
+                                    <div class="world-side italy">🇮🇹</div>
+                                    <div class="world-divider">❤️</div>
+                                    <div class="world-side lanka">🇱🇰</div>
                                 </div>
-                                <span class="polaroid-caption">Our Special Memory ❤️</span>
+                                <span class="polaroid-caption">No picture together yet... but soon! 💕</span>
                             </div>
                             <div class="polaroid-back">
-                                <p class="polaroid-handwritten">"You & Me + Kitties & Ice Cream = Perfection! 💕"</p>
+                                <p class="polaroid-handwritten">"Two worlds, one heart. Can't wait for our real photo together! 🥰"</p>
                                 <span style="font-size: 0.8rem; opacity: 0.8; margin-top: 10px;">(Tap to flip)</span>
                             </div>
                         </div>
@@ -119,37 +126,44 @@
             </div>
         </div>
 
-        <!-- Love Coupons Grid -->
+        <!-- 🎟️ SPECIAL COUPONS 
         <p class="section-label" id="couponHeader" style="margin-top: 1.5rem;">🎟️ Your Special Coupons</p>
         <div class="coupons-grid">
-            <div class="coupon-card" id="coupon1">
+            <div class="coupon-card sticky-note" id="coupon1">
                 <span>🍦</span>
                 <h4>Unlimited Ice Cream</h4>
                 <button class="coupon-btn" onclick="redeemCoupon('coupon1')">Redeem</button>
             </div>
-            <div class="coupon-card" id="coupon2">
+            <div class="coupon-card sticky-note" id="coupon2">
                 <span>💆‍♀️</span>
                 <h4>Relax Massage</h4>
                 <button class="coupon-btn" onclick="redeemCoupon('coupon2')">Redeem</button>
             </div>
-            <div class="coupon-card" id="coupon3">
+            <div class="coupon-card sticky-note" id="coupon3">
                 <span>🎬</span>
                 <h4>Movie & Cat Night</h4>
                 <button class="coupon-btn" onclick="redeemCoupon('coupon3')">Redeem</button>
             </div>
-            <div class="coupon-card" id="coupon4">
+            <div class="coupon-card sticky-note" id="coupon4">
                 <span>🍕</span>
                 <h4>Favorite Pizza Date</h4>
                 <button class="coupon-btn" onclick="redeemCoupon('coupon4')">Redeem</button>
             </div>
+        </div> -->
+
+        <!-- 🎰 IDEA 3: VENDING MACHINE DE-STRESS & ORB -->
+        <div class="vending-section">
+            <p class="section-label" id="orbTitle">🔮 Fortune & De-Stress Machine</p>
+            <button class="orb-btn" onclick="revealFortune()">🔮</button>
+            <div class="fortune-text" id="fortuneText">Click the orb for a sweet fortune & relax vibe!</div>
         </div>
 
-        <button class="btn" id="s3-btn" onclick="goToGarden()" style="margin-top: 1.2rem; font-size: 1.15rem; padding: 14px 32px;">Enter Your Garden 🌺</button>
+        <button class="btn btn-garden" id="s3-btn" onclick="goToGarden()">Enter Your Garden 🌺</button>
     </div>
 
     <!-- STEP 4: INTERACTIVE GARDEN & REFINED TUXEDO CAT -->
     <canvas id="gardenCanvas"></canvas>
-    
+
     <div id="step4" class="garden-overlay" style="display: none;">
         <div class="garden-counter" id="gardenCounter">Fiori piantati: 8 🌸</div>
 
@@ -158,8 +172,11 @@
             <p id="s4-subtitle">Click on the screen to bloom flowers, or pet the kitty below!</p>
             <button class="flower-btn-spawn" id="s4-btn" onclick="spawnRandomFlower()">Bloom a Flower 🌼</button>
         </div>
-    <div class="cat-container" id="catContainer" onclick="petAndWalkCat(event)">
-    <div class="purr-bubble" id="purrBubble">Purr... 🐾</div>
+
+        <div class="cat-container" id="catContainer" 
+             onmousedown="startPetting(event)" onmouseup="stopPetting(event)" onmouseleave="stopPetting(event)"
+             ontouchstart="startPetting(event)" ontouchend="stopPetting(event)" ontouchcancel="stopPetting(event)">
+            <div class="purr-bubble" id="purrBubble">Purr... 🐾</div>
             <svg class="cat-svg" viewBox="0 0 200 200">
                 <path d="M 135 155 Q 170 155 160 120 Q 150 100 140 125" stroke="#18181b" stroke-width="13" fill="none" stroke-linecap="round"/>
                 <ellipse cx="100" cy="150" rx="46" ry="35" fill="#ffffff" stroke="#18181b" stroke-width="2.5"/>
@@ -188,4 +205,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
