@@ -11,7 +11,13 @@ const purrAudio = new Audio('cat-sounds/cat-purr.mp3');
 purrAudio.loop = true;
 let isCatMoving = false;
 
-document.getElementById('datePicker').valueAsDate = new Date();
+// Imposta la data di default in modo sicuro una volta caricato il DOM
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('datePicker');
+    if (dateInput) {
+        dateInput.valueAsDate = new Date();
+    }
+});
 
 const translations = {
     en: {
@@ -24,8 +30,8 @@ const translations = {
         noBtn: "No 😜",
         noMessages: ["Are you sure? 🥺", "Think about it! 💭", "Look at YES growing! 😉", "Come on, ice cream! 🍦", "You can't click me! 😜"],
         s3Title: "I knew you'd say yes! 🥰",
-        s3Subtitle: "What would you like to do on our date, {name}?",
-        opt1: "Ice Cream", opt2: "Flowers", opt3: "Cat Cuddles",
+        s3Subtitle: "Pack your heart, our next memory is waiting...",
+        opt1: "Reunion Ice Cream", opt2: "Endless Hugs", opt3: "Cozy Kitty Time",
         calLabel: "Select a day for our date: 📅",
         envTitle: "Click to open your secret note & Polaroid! ✉️",
         letterText: `"Every moment with you brings a smile to my face. Distance means so little when someone means so much!"`,
@@ -37,7 +43,6 @@ const translations = {
         counterText: "Flowers bloomed: ",
         orbTitle: "🔮 Fortune & De-Stress Machine",
         orbDefault: "Click the orb for a sweet fortune & relax vibe!",
-        couponHeader: "🎟️ Your Special Coupons",
         fortunes: [
             "Destiny says: You owe me a kiss today! 😘",
             "Prediction: A day filled with smiles and infinite ice cream! 🍦",
@@ -45,8 +50,8 @@ const translations = {
             "Outcome: 100% chance of cat cuddles and happiness! 🐱"
         ],
         actFeedback: {
-            icecream: "🍦 Yummy ice cream together! What's your favorite flavor?",
-            flowers: "🌸 Walking through a beautiful blooming garden together!",
+            icecream: "🍦 Gelato & endless hugs from Italy are waiting for you!",
+            flowers: "🌸 Long walk together holding hands, recovering lost time!",
             cat: "🐱 Cuddles, purrs, and cozy relax time with kitties!"
         },
         loveToasts: ["You make me smile ✨", "So sweet! 💕", "Beautiful! 🌸", "My favorite! 🥰"]
@@ -61,8 +66,8 @@ const translations = {
         noBtn: "Baha 😜",
         noMessages: ["Sureda? 🥺", "Poddak hithanna! 💭", "Baha kiyanna epa! 😱", "Aney YES click karanna! 😉", "Oyatha baa mawa click karanna! 😜"],
         s3Title: "Man denagena hitiya ow kiyawi kiyala! 🥰",
-        s3Subtitle: "Mokadda karanna kamathi ape date ekedi, {name}?",
-        opt1: "Ice Cream", opt2: "Mal", opt3: "Cat Cuddles",
+        s3Subtitle: "Ape ilanga muna gahena dawasath langai...",
+        opt1: "Ice Cream", opt2: "Adaren Inna", opt3: "Poocho Ekka",
         calLabel: "Ape date ekata dawasak thoranna: 📅",
         envTitle: "Podi secret note ekak thiyenawa, click karanna! ✉️",
         letterText: `"Oya ekka inna hama mohothakama mata godak sathutui. Distance means so little when someone means so much!"`,
@@ -74,7 +79,6 @@ const translations = {
         counterText: "Mal pipuna: ",
         orbTitle: "🔮 Anagatha Pilibanda Hithanna",
         orbDefault: "Orb eka click karala balanna!",
-        couponHeader: "🎟️ Oyagema Special Coupons",
         fortunes: [
             "Aney Ada mata kiss ekak denna wenawa! 😘",
             "Ada dawasa godak sathutin inna puluwan! 🍦",
@@ -98,8 +102,8 @@ const translations = {
         noBtn: "බෑ 😜",
         noMessages: ["ෂුවර්ද? 🥺", "පොඩ්ඩක් හිතන්න! 💭", "බෑ කියන්න එපා! 😱", "අනේ YES ක්ලික් කරන්න! 😉", "ඔයාට බෑ මාව ක්ලික් කරන්න! 😜"],
         s3Title: "මං දැනන් හිටියා ඔව් කියනවා කියලා! 🥰",
-        s3Subtitle: "{name}, අපේ ඩේට් එකේදී මොකද කරන්න කැමති?",
-        opt1: "අයිස්ක්‍රීම්", opt2: "මල්", opt3: "පූසෝ",
+        s3Subtitle: "අපේ ඊළඟ සුන්දර මතකය ළඟදීම...",
+        opt1: "අයිස්ක්‍රීම්", opt2: "ආදරණීය වැළඳගැනීම්", opt3: "පූසෝ",
         calLabel: "අපේ ඩේට් එකට දවසක් තෝරන්න: 📅",
         envTitle: "ඔයාට ආදරණීය පණිවිඩයක්, ක්ලික් කරන්න! ✉️",
         letterText: `"ඔයා එක්ක ඉන්න හැම මොහොතකම මට ගොඩක් සතුටුයි. දුර කියන්නේ ප්‍රශ්නයක් නෙවෙයි ආදරේ තියෙනවා නම්!"`,
@@ -111,7 +115,6 @@ const translations = {
         counterText: "පිපුණු මල්: ",
         orbTitle: "🔮 අනාගතය ගැන අනාවැකිය",
         orbDefault: "ස්පටික බෝලය ක්ලික් කරන්න!",
-        couponHeader: "🎟️ ඔයාගේ විශේෂ කූපන්",
         fortunes: [
             "අද මට ලස්සන හාදුවක් දෙන්න වෙනවා! 😘",
             "අයිස්ක්‍රීම් එක්ක ගොඩක් සතුටු හවසක්! 🍦",
@@ -135,60 +138,77 @@ function selectOption(card, type) {
     currentActivityType = type;
 
     const feedback = document.getElementById('activityBox');
-    feedback.style.display = 'block';
-    feedback.textContent = translations[currentLang].actFeedback[type];
+    if (feedback) {
+        feedback.style.display = 'block';
+        feedback.textContent = translations[currentLang].actFeedback[type];
+    }
 }
 
+// Funzione setLanguage "Safe": non fallisce se un elemento HTML non esiste
 function setLanguage(lang) {
     currentLang = lang;
     document.querySelectorAll('.top-btn').forEach(btn => {
         if (btn.id.startsWith('lang-')) btn.classList.remove('active');
     });
-    document.getElementById(`lang-${lang}`).classList.add('active');
+    
+    const activeLangBtn = document.getElementById(`lang-${lang}`);
+    if (activeLangBtn) activeLangBtn.classList.add('active');
 
     const t = translations[lang];
 
-    document.getElementById('s1-title').textContent = t.s1Title;
-    document.getElementById('s1-subtitle').textContent = t.s1Subtitle;
-    document.getElementById('s1-btn').textContent = t.s1Btn;
+    const safeSetText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    };
 
-    document.getElementById('s2-title').textContent = t.s2Title.replace('{name}', userName);
-    document.getElementById('s2-subtitle').textContent = t.s2Subtitle;
-    document.getElementById('yesBtn').textContent = t.yesBtn;
-    document.getElementById('noBtn').textContent = t.noBtn;
+    safeSetText('s1-title', t.s1Title);
+    safeSetText('s1-subtitle', t.s1Subtitle);
+    safeSetText('s1-btn', t.s1Btn);
 
-    document.getElementById('s3-title').textContent = t.s3Title;
-    document.getElementById('s3-subtitle').textContent = t.s3Subtitle.replace('{name}', userName);
-    document.getElementById('opt1').textContent = t.opt1;
-    document.getElementById('opt2').textContent = t.opt2;
-    document.getElementById('opt3').textContent = t.opt3;
-    document.getElementById('calLabel').textContent = t.calLabel;
-    document.getElementById('env-title').textContent = t.envTitle;
+    safeSetText('s2-title', t.s2Title.replace('{name}', userName));
+    safeSetText('s2-subtitle', t.s2Subtitle);
+    safeSetText('yesBtn', t.yesBtn);
+    safeSetText('noBtn', t.noBtn);
+
+    safeSetText('s3-title', t.s3Title);
+    safeSetText('s3-subtitle', t.s3Subtitle);
+    safeSetText('opt1', t.opt1);
+    safeSetText('opt2', t.opt2);
+    safeSetText('opt3', t.opt3);
+    safeSetText('calLabel', t.calLabel);
+    safeSetText('env-title', t.envTitle);
     
     const letterMsg = document.querySelector('.letter-message');
     if (letterMsg) letterMsg.textContent = t.letterText;
 
-    document.getElementById('s3-btn').textContent = t.s3Btn;
+    safeSetText('s3-btn', t.s3Btn);
 
-    document.getElementById('s4-title').textContent = t.s4Title.replace('{name}', userName);
-    document.getElementById('s4-subtitle').textContent = t.s4Subtitle;
-    document.getElementById('s4-btn').textContent = t.s4Btn;
+    safeSetText('s4-title', t.s4Title.replace('{name}', userName));
+    safeSetText('s4-subtitle', t.s4Subtitle);
+    safeSetText('s4-btn', t.s4Btn);
 
-    document.getElementById('orbTitle').textContent = t.orbTitle;
-    document.getElementById('fortuneText').textContent = t.orbDefault;
-    document.getElementById('couponHeader').textContent = t.couponHeader;
+    safeSetText('orbTitle', t.orbTitle);
+    safeSetText('fortuneText', t.orbDefault);
 
-    document.getElementById('activityBox').textContent = t.actFeedback[currentActivityType];
+    const activityBox = document.getElementById('activityBox');
+    if (activityBox) activityBox.textContent = t.actFeedback[currentActivityType];
+    
     updateCounterDisplay();
 }
 
 function goToStep2() {
-    const input = document.getElementById('userNameInput').value.trim();
-    if (input !== "") userName = input;
+    const inputEl = document.getElementById('userNameInput');
+    if (inputEl) {
+        const input = inputEl.value.trim();
+        if (input !== "") userName = input;
+    }
     
     setLanguage(currentLang);
-    document.getElementById('step1').classList.remove('active');
-    document.getElementById('step2').classList.add('active');
+    
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    if (step1) step1.classList.remove('active');
+    if (step2) step2.classList.add('active');
     
     initNoBtn();
 }
@@ -196,6 +216,8 @@ function goToStep2() {
 function initNoBtn() {
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
+
+    if (!noBtn || !yesBtn) return;
 
     const moveNoBtn = (e) => {
         if (e) e.preventDefault();
@@ -213,48 +235,90 @@ function initNoBtn() {
         noBtn.textContent = t.noMessages[msgIndex];
 
         const group = document.getElementById('buttonGroup');
-        const rect = group.getBoundingClientRect();
+        if (group) {
+            const rect = group.getBoundingClientRect();
+            const randomX = (Math.random() - 0.5) * (rect.width - 120);
+            const randomY = (Math.random() - 0.5) * (rect.height - 50);
 
-        const randomX = (Math.random() - 0.5) * (rect.width - 120);
-        const randomY = (Math.random() - 0.5) * (rect.height - 50);
-
-        noBtn.style.left = `${randomX}px`;
-        noBtn.style.top = `${randomY}px`;
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        }
     };
 
-    noBtn.addEventListener('mouseover', moveNoBtn);
-    noBtn.addEventListener('touchstart', moveNoBtn);
-    noBtn.addEventListener('click', moveNoBtn);
+    noBtn.replaceWith(noBtn.cloneNode(true));
+    const newNoBtn = document.getElementById('noBtn');
+
+    newNoBtn.addEventListener('mouseover', moveNoBtn);
+    newNoBtn.addEventListener('touchstart', moveNoBtn, { passive: false });
+    newNoBtn.addEventListener('click', moveNoBtn);
 }
 
-// --- GO TO STEP 3 CON ANIMAZIONE BIGLIETTO AEREO ---
+// --- GO TO STEP 3 CON ANIMAZIONE BIGLIETTO AEREO ORIZZONTALE ---
 function goToStep3() {
-    document.getElementById('step2').classList.remove('active');
+    const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
-    step3.classList.add('active');
+    if (step2) step2.classList.remove('active');
+    if (step3) step3.classList.add('active');
 
-    // Innesca l'animazione di volo del biglietto aereo
-    const ticket = document.querySelector('.boarding-pass');
+    // Imposta il nome del passeggero sul biglietto
+    const passengerEl = document.getElementById('passengerName');
+    if (passengerEl) passengerEl.textContent = userName;
+
+    // Attiva l'animazione di volo 3D del biglietto orizzontale
+    const ticket = document.querySelector('.boarding-pass-horizontal');
     if (ticket) {
         ticket.style.animation = 'none';
         ticket.offsetHeight; // Reflow per resettare l'animazione
-        ticket.style.animation = 'ticketFlyIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+        ticket.style.animation = 'flyAndLanding 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+    }
+}
+
+// --- CALCOLO COUNTDOWN D'ATTESA ---
+function updateCountdown() {
+    const datePicker = document.getElementById('datePicker');
+    const countdownBox = document.getElementById('countdownBox');
+    if (!datePicker || !countdownBox) return;
+
+    if (!datePicker.value) {
+        countdownBox.textContent = "✈️ Select a date to calculate days left!";
+        return;
+    }
+
+    const selectedDate = new Date(datePicker.value);
+    const today = new Date();
+    
+    selectedDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+
+    const diffTime = selectedDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) {
+        countdownBox.textContent = "🎉 IT'S TODAY! No more distance, finally together! 💕";
+    } else if (diffDays > 0) {
+        countdownBox.textContent = `⏳ Only ${diffDays} days left until I get to hug you again! 🥰`;
+    } else {
+        countdownBox.textContent = "✨ Counting every single day until we meet again!";
     }
 }
 
 function toggleLetter() {
     const text = document.getElementById('letterText');
-    text.style.display = (text.style.display === 'block') ? 'none' : 'block';
+    if (text) {
+        text.style.display = (text.style.display === 'block') ? 'none' : 'block';
+    }
 }
 
 function sendWhatsAppMessage() {
-    const dateVal = document.getElementById('datePicker').value;
+    const dateInput = document.getElementById('datePicker');
+    const dateVal = dateInput ? dateInput.value : '';
     const text = encodeURIComponent(`Ciao Kevin! Ho detto SÌ sul tuo sito! 🥰 Ci vediamo il ${dateVal} per la nostra attività (${currentActivityType})! 🍦🌸✨`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
 function addToGoogleCalendar() {
-    const dateVal = document.getElementById('datePicker').value;
+    const dateInput = document.getElementById('datePicker');
+    const dateVal = dateInput ? dateInput.value : '';
     if (!dateVal) return;
     const formattedDate = dateVal.replace(/-/g, '');
     const title = encodeURIComponent(`Appuntamento Speciale con Kevin 🍦🌸`);
@@ -266,30 +330,33 @@ function addToGoogleCalendar() {
 function revealFortune() {
     const fortunes = translations[currentLang].fortunes;
     const textEl = document.getElementById('fortuneText');
-    textEl.textContent = fortunes[Math.floor(Math.random() * fortunes.length)];
-}
-
-function redeemCoupon(id) {
-    const coupon = document.getElementById(id);
-    coupon.classList.add('redeemed');
-    const btn = coupon.querySelector('button');
-    btn.textContent = '✅ Redeemed!';
-    btn.disabled = true;
+    if (textEl) {
+        textEl.textContent = fortunes[Math.floor(Math.random() * fortunes.length)];
+    }
 }
 
 function goToGarden() {
-    document.getElementById('step3').classList.remove('active');
-    document.getElementById('step4').style.display = 'flex';
-    document.getElementById('homeBtn').style.display = 'inline-block';
+    const step3 = document.getElementById('step3');
+    const step4 = document.getElementById('step4');
+    const homeBtn = document.getElementById('homeBtn');
+
+    if (step3) step3.classList.remove('active');
+    if (step4) step4.style.display = 'flex';
+    if (homeBtn) homeBtn.style.display = 'inline-block';
+
     initGardenCanvas();
 }
 
 function resetToHome() {
-    document.getElementById('step4').style.display = 'none';
-    document.getElementById('homeBtn').style.display = 'none';
+    const step4 = document.getElementById('step4');
+    const homeBtn = document.getElementById('homeBtn');
+    if (step4) step4.style.display = 'none';
+    if (homeBtn) homeBtn.style.display = 'none';
     
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('step1').classList.add('active');
+    
+    const step1 = document.getElementById('step1');
+    if (step1) step1.classList.add('active');
 
     noCount = 0;
     yesBtnScale = 1;
@@ -316,14 +383,15 @@ function stopPetting(e) {
 
 function petAndWalkCat(e) {
     if (e) e.stopPropagation();
-    if (isCatMoving) return; // Se sta già camminando, attende la fine
+    if (isCatMoving) return;
 
     isCatMoving = true;
     const container = document.getElementById('catContainer');
     const bubble = document.getElementById('purrBubble');
     const sounds = translations[currentLang].purrSounds;
 
-    // 1. Audio fusa durante la passeggiata
+    if (!container || !bubble) return;
+
     purrAudio.currentTime = 0;
     purrAudio.play().catch(err => console.log("Audio blocked:", err));
 
@@ -333,36 +401,29 @@ function petAndWalkCat(e) {
     bubble.textContent = sounds[Math.floor(Math.random() * sounds.length)];
     bubble.classList.add('show');
 
-    // 2. Petali / Cuori
     for (let i = 0; i < 4; i++) {
         spawnPetalOrHeart(window.innerWidth / 2 + (Math.random() - 0.5) * 120, window.innerHeight - 120);
     }
 
-    // 3. CAMMINATA LOOP:
-    // FASE A: Va a destra (durata: 1 secondo)
     container.classList.remove('walk-left');
     container.classList.add('walk-right');
 
     setTimeout(() => {
-        // FASE B: Si gira e va a sinistra (durata: 1.1 secondi)
         container.classList.remove('walk-right');
         container.classList.add('walk-left');
 
         setTimeout(() => {
-            // FASE C: Torna al centro
             container.classList.remove('walk-left');
             container.classList.remove('purring');
             bubble.classList.remove('show');
 
-            // Ferma le fusa
             purrAudio.pause();
             purrAudio.currentTime = 0;
 
-            // Miagolio finale quando torna seduto
             meowAudio.currentTime = 0;
             meowAudio.play().catch(err => console.log("Meow blocked:", err));
 
-            isCatMoving = false; // Pronto per un nuovo tap!
+            isCatMoving = false;
         }, 1100);
     }, 1000);
 }
@@ -373,11 +434,11 @@ function toggleAudio() {
     if (!musicPlaying) {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         musicPlaying = true;
-        btn.textContent = "🔊 Playing";
+        if (btn) btn.textContent = "🔊 Playing";
         playLullaby();
     } else {
         musicPlaying = false;
-        btn.textContent = "🎵 Music";
+        if (btn) btn.textContent = "🎵 Music";
     }
 }
 
@@ -408,6 +469,7 @@ let flowerCount = 0;
 
 function initGardenCanvas() {
     canvas = document.getElementById('gardenCanvas');
+    if (!canvas) return;
     ctx = canvas.getContext('2d');
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -490,7 +552,10 @@ function addFlower(x, y, countIt = true) {
 
 function updateCounterDisplay() {
     const t = translations[currentLang];
-    document.getElementById('gardenCounter').textContent = `${t.counterText} ${flowerCount + 8} 🌸`;
+    const counterEl = document.getElementById('gardenCounter');
+    if (counterEl) {
+        counterEl.textContent = `${t.counterText} ${flowerCount + 8} 🌸`;
+    }
 }
 
 function spawnRandomFlower() {

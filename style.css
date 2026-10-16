@@ -199,28 +199,179 @@ input:focus {
     transition: transform 0.15s ease, left 0.2s ease, top 0.2s ease;
 }
 
-/* Griglia opzioni dell'appuntamento */
-.options-grid {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    margin: 1.2rem 0;
-    flex-wrap: wrap;
+/* --- ANIMAZIONE D'INGRESSO 3D: IL BIGLIETTO SVOLAZZA ED ATTERRA --- */
+@keyframes flyAndLanding {
+    0% {
+        opacity: 0;
+        transform: translateY(-160px) rotate(-10deg) scale(0.7);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(18px) rotate(2deg) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
 }
 
-.option-card {
+/* --- BIGLIETTO AEREO ORIZZONTALE CON STUB --- */
+.boarding-pass-horizontal {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 2px dashed #ff85a1;
+    box-shadow: 0 15px 35px rgba(255, 71, 126, 0.2);
+    margin: 1.5rem auto;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    position: relative;
+    max-width: 640px;
+    animation: flyAndLanding 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.pass-main {
+    padding: 20px;
+    flex: 1;
+    text-align: left;
+}
+
+.pass-header-h {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #ffe5ec;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.airline-logo {
+    font-weight: 800;
+    color: var(--accent-rose);
+    font-size: 0.95rem;
+}
+
+.flight-class {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: #ffe5ec;
+    color: var(--accent-rose);
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+/* ROTTA D'AEROPORTO FCO -> CMB */
+.route-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0;
+    background: #fdf0f5;
+    padding: 12px 18px;
+    border-radius: 16px;
+}
+
+.airport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.airport .code {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-rose);
+    line-height: 1;
+}
+
+.airport .city {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.flight-path {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 0 15px;
+}
+
+.plane-icon {
+    font-size: 1.2rem;
+    animation: floatPlane 2s infinite ease-in-out;
+}
+
+@keyframes floatPlane {
+    0%, 100% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+}
+
+.flight-line {
+    width: 100%;
+    height: 2px;
+    border-top: 2px dashed var(--primary-pink);
+    margin: 4px 0;
+}
+
+.flight-no {
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--soft-purple);
+}
+
+/* DETTAGLI PASSEGGERO */
+.pass-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item .label {
+    font-size: 0.62rem;
+    color: #888;
+    font-weight: 700;
+}
+
+.detail-item .val {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.detail-item .val.highlight {
+    color: var(--accent-rose);
+}
+
+.options-grid-h {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.options-grid-h .option-card {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    text-align: center;
     background: #fff0f3;
     border: 2px solid #ffccd5;
-    border-radius: 18px;
-    padding: 14px 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-    flex: 1;
-    min-width: 110px;
-    max-width: 160px;
 }
 
-.option-card.selected {
+.options-grid-h .option-card.selected {
     background: #ff477e;
     color: white;
     border-color: #ff477e;
@@ -228,18 +379,96 @@ input:focus {
     box-shadow: 0 8px 20px rgba(255, 71, 126, 0.35);
 }
 
-.option-card span { font-size: 2.1rem; display: block; margin-bottom: 4px; }
-.option-card p { font-size: 0.95rem; margin: 0; font-weight: 700; color: inherit; }
+.options-grid-h .option-card span {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 2px;
+}
 
-.activity-feedback {
-    background: #f0f3ff;
-    border: 2px solid #a2d2ff;
-    padding: 12px 16px;
-    border-radius: 16px;
-    color: #2b2d42;
-    font-size: 1rem;
+.options-grid-h .option-card p {
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: 700;
+    color: inherit;
+}
+
+.passenger-notice {
+    background: #f0f7ff;
+    border: 2px dashed #90e0ef;
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 1.2rem;
+    color: #03045e;
+}
+
+.date-section-h {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.countdown-badge {
+    background: #fff0f3;
+    border: 1px solid #ffccd5;
+    color: var(--accent-rose);
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    border-radius: 12px;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+.ticket-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.btn-wa { background: #25d366 !important; }
+.btn-cal { background: #4285f4 !important; }
+
+/* MATRICE LATERALE (STUB) */
+.pass-stub-h {
+    width: 120px;
+    background: linear-gradient(180deg, #fff0f3 0%, #ffe5ec 100%);
+    border-left: 2px dotted #ff85a1;
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.stub-header {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--accent-rose);
+}
+
+.stub-info span {
+    display: block;
+    font-size: 0.6rem;
+    color: #777;
+}
+
+.stub-info strong {
+    font-size: 0.82rem;
+    color: var(--accent-rose);
+}
+
+.barcode {
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: -1px;
+    color: #444;
+    transform: rotate(-90deg);
+    margin-bottom: 20px;
 }
 
 /* Envelope Card & Expanded 3D Polaroid Section */
@@ -314,14 +543,6 @@ input:focus {
     transform: rotate(-2deg);
 }
 
-.polaroid-front img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 6px;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-
 .polaroid-caption {
     font-family: 'Caveat', 'Comic Sans MS', cursive, sans-serif;
     font-size: 1.3rem;
@@ -344,45 +565,24 @@ input:focus {
     line-height: 1.4;
 }
 
-/* Coupons Grid */
-.coupons-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 1.2rem 0;
+.polaroid-img-frame {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
 }
 
-.coupon-card {
-    background: #fff;
-    border: 2px dashed #ff85a1;
-    border-radius: 16px;
-    padding: 12px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.coupon-card.redeemed {
-    opacity: 0.6;
-    background: #e8e8e4;
-    border-color: #aaa;
-}
-
-.coupon-card span { font-size: 1.8rem; display: block; }
-.coupon-card h4 { font-size: 0.95rem; color: var(--accent-rose); margin: 4px 0; font-weight: 700; }
-.coupon-btn {
-    background: var(--accent-rose);
-    color: white;
-    border: none;
-    padding: 6px 14px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-top: 6px;
+.polaroid-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
 }
 
 /* Fortune Section */
-.fortune-section {
+.fortune-section, .vending-section {
     background: #fdf0f5;
     border-radius: 18px;
     padding: 14px;
@@ -409,6 +609,13 @@ input:focus {
     font-weight: 600;
     margin-top: 8px;
     min-height: 32px;
+}
+
+.btn-garden {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    padding: 14px 36px;
+    background: linear-gradient(45deg, #ff477e, #ff85a1);
 }
 
 /* Garden Canvas & Overlays */
@@ -570,7 +777,7 @@ input:focus {
 }
 
 /* Media Queries */
-@media (max-width: 480px) {
+@media (max-width: 580px) {
     .screen {
         padding: 1.8rem 1.2rem;
         border-radius: 24px;
@@ -579,8 +786,21 @@ input:focus {
     h1 { font-size: 1.7rem; }
     p { font-size: 1rem; }
 
-    .coupons-grid {
-        grid-template-columns: 1fr;
+    .boarding-pass-horizontal {
+        flex-direction: column;
+    }
+
+    .pass-stub-h {
+        width: 100%;
+        border-left: none;
+        border-top: 2px dotted #ff85a1;
+        flex-direction: row;
+        padding: 12px;
+    }
+
+    .barcode {
+        transform: none;
+        margin-bottom: 0;
     }
 
     .polaroid-container {
@@ -588,121 +808,7 @@ input:focus {
         height: 230px;
     }
 
-    .polaroid-front img {
+    .polaroid-img-frame {
         height: 150px;
     }
-}
-
-/* --- TICKET BOARDING PASS & ANIMAZIONE FLY-IN --- */
-@keyframes ticketFlyIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-80px) rotate(-4deg) scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg) scale(1);
-    }
-}
-
-.boarding-pass {
-    background: #ffffff;
-    border-radius: 20px;
-    border: 2px dashed #ff85a1;
-    box-shadow: 0 10px 25px rgba(255, 133, 161, 0.15);
-    margin: 1.5rem 0;
-    overflow: hidden;
-    position: relative;
-    animation: ticketFlyIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-.pass-header {
-    background: linear-gradient(45deg, var(--primary-pink), var(--accent-rose));
-    color: white;
-    padding: 10px 18px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.pass-body {
-    padding: 18px;
-}
-
-.pass-stub {
-    background: #fff0f3;
-    border-top: 2px dotted #ffccd5;
-    padding: 8px 18px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--accent-rose);
-}
-
-.ticket-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.btn-wa { background: #25d366 !important; }
-.btn-cal { background: #4285f4 !important; }
-
-/* --- POLAROID TWO WORLDS --- */
-.two-worlds-frame {
-    width: 100%;
-    height: 180px;
-    background: linear-gradient(135deg, #a2d2ff 0%, #ffc8dd 100%);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 2.8rem;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-}
-
-.world-divider {
-    font-size: 1.8rem;
-    animation: pulseHeart 1.5s infinite ease-in-out;
-}
-
-@keyframes pulseHeart {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.25); }
-}
-
-/* --- STICKY NOTES COUPONS --- */
-.coupon-card.sticky-note {
-    background: #fff9db;
-    border: 1px solid #ffe066;
-    transform: rotate(-1deg);
-    transition: transform 0.2s ease;
-}
-
-.coupon-card.sticky-note:nth-child(even) {
-    transform: rotate(1.5deg);
-}
-
-.coupon-card.sticky-note:hover {
-    transform: scale(1.04) rotate(0deg);
-}
-
-/* --- VENDING MACHINE ORB --- */
-.vending-section {
-    background: #f0f3ff;
-    border-radius: 20px;
-    padding: 16px;
-    border: 2px solid #a2d2ff;
-    margin: 1.5rem 0;
-}
-
-.btn-garden {
-    margin-top: 1.5rem;
-    font-size: 1.2rem;
-    padding: 14px 36px;
-    background: linear-gradient(45deg, #ff477e, #ff85a1);
 }
